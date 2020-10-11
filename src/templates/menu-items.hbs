@@ -1,3 +1,4 @@
+{{#each this}}
 <li class="menu__item">
     <div class="card">
         <img src="{{image}}" alt="{{name}}" class="card__image" />
@@ -15,12 +16,15 @@
             </p>
 
             <ul class="tag-list">
-                <li class="tag-list__item">Картопля</li>
+                {{#each ingredients}}
+                <li class="tag-list__item">{{ingredients}}</li>
+                {{/each}}
+                {{!-- <li class="tag-list__item">Картопля</li>
                 <li class="tag-list__item">Часник</li>
                 <li class="tag-list__item">Сметана</li>
                 <li class="tag-list__item">Бекон</li>
                 <li class="tag-list__item">Твердий сир</li>
-                <li class="tag-list__item">Зелена цибуля</li>
+                <li class="tag-list__item">Зелена цибуля</li> --}}
             </ul>
         </div>
 
@@ -32,3 +36,4 @@
         </button>
     </div>
 </li>
+{{/each}}

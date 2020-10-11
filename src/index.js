@@ -1,6 +1,11 @@
+import menuItemTemplate from './templates/menu-items.hbs';
+import menuItems from './menu.json';
+import './styles.css';
+
 const refs = {
   themeCheckbox: document.querySelector('#theme-switch-toggle'),
   bodyEl: document.querySelector('body'),
+  menuEl: document.querySelector('.js-menu'),
 };
 
 const Theme = {
@@ -14,7 +19,11 @@ setClientTheme();
 
 refs.themeCheckbox.addEventListener('change', changeTheme);
 
-//console.log(refs.themeCheckbox.checked);
+const menuItemsMarkup = createMenuItems(menuItems);
+
+refs.menuEl.insertAdjacentHTML('beforeend', menuItemsMarkup);
+
+console.log(menuItemsMarkup);
 
 function changeTheme() {
   if (localStorage?.getItem(keyTheme) === Theme.DARK) {
@@ -43,4 +52,8 @@ function setClientTheme() {
       refs.themeCheckbox.checked = true;
     }
   }
+}
+
+function createMenuItems(menuItems) {
+  return menuItemTemplate(menuItems);
 }

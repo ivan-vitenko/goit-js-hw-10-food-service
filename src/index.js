@@ -17,41 +17,41 @@ const keyTheme = 'Theme';
 
 setClientTheme();
 
+let currentTheme;
+let newTheme;
+setStatusOfThemes();
+
 refs.themeCheckbox.addEventListener('change', changeTheme);
 
 const menuItemsMarkup = createMenuItems(menuItems);
 
 refs.menuEl.insertAdjacentHTML('beforeend', menuItemsMarkup);
 
-console.log(menuItemsMarkup);
-
 function changeTheme() {
-  if (localStorage?.getItem(keyTheme) === Theme.DARK) {
-    setLightTheme();
-  } else {
-    setDarkTheme();
-  }
-}
+  refs.bodyEl.classList.remove(currentTheme);
+  refs.bodyEl.classList.add(newTheme);
+  localStorage.setItem(keyTheme, newTheme);
 
-function setLightTheme() {
-  refs.bodyEl.classList.remove(Theme.DARK);
-  refs.bodyEl.classList.add(Theme.LIGHT);
-  localStorage.setItem(keyTheme, Theme.LIGHT);
-}
-
-function setDarkTheme() {
-  refs.bodyEl.classList.remove(Theme.LIGHT);
-  refs.bodyEl.classList.add(Theme.DARK);
-  localStorage.setItem(keyTheme, Theme.DARK);
+  setStatusOfThemes();
 }
 
 function setClientTheme() {
-  if (localStorage?.getItem(keyTheme)) {
-    refs.bodyEl.classList.add(localStorage.getItem(keyTheme));
-    if (localStorage.getItem(keyTheme) === Theme.DARK) {
+  const clientTheme = localStorage.getItem(keyTheme);
+
+  if (clientTheme) {
+    refs.bodyEl.classList.add(clientTheme);
+    if (clientTheme === Theme.DARK) {
       refs.themeCheckbox.checked = true;
     }
+  } else {
+    refs.bodyEl.classList.add(Theme.LIGHT);
+    localStorage.setItem(keyTheme, Theme.LIGHT);
   }
+}
+
+function setStatusOfThemes() {
+  currentTheme = localStorage.getItem(keyTheme);
+  newTheme = currentTheme !== Theme.LIGHT ? Theme.LIGHT : Theme.DARK;
 }
 
 function createMenuItems(menuItems) {

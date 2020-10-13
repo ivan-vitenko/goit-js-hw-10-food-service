@@ -38,11 +38,10 @@ function changeTheme() {
 function setClientTheme() {
   const clientTheme = localStorage.getItem(keyTheme);
 
-  if (clientTheme) {
-    refs.bodyEl.classList.add(clientTheme);
-    if (clientTheme === Theme.DARK) {
-      refs.themeCheckbox.checked = true;
-    }
+  refs.bodyEl.classList.add(clientTheme);
+
+  if (clientTheme === Theme.DARK) {
+    refs.themeCheckbox.checked = true;
   } else {
     refs.bodyEl.classList.add(Theme.LIGHT);
     localStorage.setItem(keyTheme, Theme.LIGHT);
